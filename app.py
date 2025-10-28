@@ -21,7 +21,7 @@ with col2:
 with col3:
     st.markdown("<div style='display:flex;align-items:center;gap:8px;'>⬛<b>BB</b></div>", unsafe_allow_html=True)
 
-# --- GENERAR Y MOSTRAR EL PATRÓN ---
+# --- GENERAR PATRÓN ALEATORIO ---
 def generar_patron_html():
     colores = np.random.choice(["#000000", "#FFD700"], size=(10, 10))
     html = "<div style='display:grid;grid-template-columns:repeat(10,20px);gap:1px;background:#ccc;padding:5px;border-radius:10px;width:max-content;margin:auto;'>"
@@ -31,10 +31,13 @@ def generar_patron_html():
     html += "</div>"
     return html
 
-if st.button("Realizar cruzamiento 🔄") or "patron" not in st.session_state:
+# --- BOTÓN Y MOSTRAR CUADRADO SOLO DESPUÉS ---
+if st.button("Realizar cruzamiento 🔄"):
     st.session_state["patron"] = generar_patron_html()
 
-st.markdown(st.session_state["patron"], unsafe_allow_html=True)
+if "patron" in st.session_state:
+    st.markdown(st.session_state["patron"], unsafe_allow_html=True)
+    st.caption("Ejemplo de inactivación aleatoria del cromosoma X")
 
 # --- EXPLICACIÓN BIOLÓGICA ---
 st.markdown("""
@@ -45,9 +48,8 @@ Durante el desarrollo embrionario, uno de los cromosomas X se **inactiva al azar
 
 Esto genera un mosaico de células que expresan:
 - el alelo **B (negro)**  
-- o el alelo **b (amarillo / anaranjado)**  
+- o el alelo **b (amarillo o anaranjado)**  
 
 El resultado es el **patrón bicolor característico del pelaje carey**, producto de la inactivación aleatoria del cromosoma X.  
 El color **blanco** que a veces aparece en los gatos tricolores no se debe a este gen, sino a la acción de **otros genes de coloración**.
 """)
-
