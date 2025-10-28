@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-st.title("🐾 Herencia ligada al sexo: Gato Carey 🧬")
+st.title("🐾 Herencia ligada al sexo: Gatas Carey 🧬")
 st.write("Visualización interactiva de la **inactivación del cromosoma X** en gatas bicolor (carey).")
 
 # --- MOSTRAR GENOTIPOS ---
