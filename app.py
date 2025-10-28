@@ -44,7 +44,7 @@ st.markdown("""
 ### 🧬 Explicación biológica
 
 En las gatas **carey bicolor** (**XᴮXᵇ**), el gen del color del pelaje se encuentra en el **cromosoma X**.  
-Durante el desarrollo embrionario, uno de los cromosomas X se **inactiva al azar** en cada célula, fenómeno conocido como **inactivación del cromosoma X**.
+Durante el desarrollo embrionario, uno de los cromosomas X se **inactiva al azar** en cada célula, mecanismo llamado **compensación de dosis**, ya que evita que las hembras (XX) tengan el doble de "dosis" genética del cromosoma X que los machos (XY).
 
 Esto genera un mosaico de células que expresan:
 - el alelo **B (negro)**  
