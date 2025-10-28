@@ -48,7 +48,7 @@ Durante el desarrollo embrionario, uno de los cromosomas X se **inactiva al azar
 
 Esto genera un mosaico de células que expresan:
 - el alelo **B (negro)**  
-- o el alelo **b (amarillo o anaranjado)**  
+- o el alelo **b (amarillo / anaranjado)**  
 
 El resultado es el **patrón bicolor característico del pelaje carey**, producto de la inactivación aleatoria del cromosoma X.  
 El color **blanco** que a veces aparece en los gatos tricolores no se debe a este gen, sino a la acción de **otros genes de coloración**.
