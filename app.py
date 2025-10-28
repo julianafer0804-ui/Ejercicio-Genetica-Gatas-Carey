@@ -3,7 +3,7 @@ import numpy as np
 
 # --- CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="Herencia ligada al sexo: Gato Carey",
+    page_title="Herencia ligada al sexo: Gatas Carey",
     page_icon="🐱",
     layout="centered"
 )
