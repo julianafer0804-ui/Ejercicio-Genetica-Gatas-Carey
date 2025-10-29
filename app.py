@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 
-# Configuración de la página
+# Configuración general
 st.set_page_config(page_title="Herencia ligada al sexo - Fenotipo Carey", page_icon="🐱", layout="centered")
 
 st.title("🐾 Herencia ligada al sexo: Fenotipo Carey (Tortoiseshell)")
@@ -34,22 +34,25 @@ cruzamiento = st.selectbox(
 # Botón para simular
 if st.button("Realizar cruzamiento"):
     madre, padre = cruces[cruzamiento]
-    
+
     st.markdown("### 🔬 Resultado del cruzamiento")
     st.markdown(f"**Genotipos parentales:** {madre} × {padre}")
     st.markdown("**Descendencia posible (hembra heterocigota XᴮXᵇ):**")
 
     # Generar patrón aleatorio (inactivación X)
-    size = 40  # tamaño del mosaico
+    size = 20
     matriz = np.random.choice([0, 1], size=(size, size))
-    
-    # Convertir la matriz en un gráfico de píxeles (negro y amarillo)
-    import matplotlib.pyplot as plt
 
-    fig, ax = plt.subplots(figsize=(4, 4))
-    ax.imshow(matriz, cmap="inferno", interpolation="nearest")
-    ax.axis("off")
-    st.pyplot(fig)
+    # Crear cuadrado de píxeles con HTML
+    pixel_size = 20
+    html = "<div style='display: grid; grid-template-columns: " + " ".join(["{}px".format(pixel_size)] * size) + ";'>"
+    for i in range(size):
+        for j in range(size):
+            color = "#FFD700" if matriz[i, j] == 1 else "#000000"
+            html += f"<div style='width:{pixel_size}px; height:{pixel_size}px; background-color:{color};'></div>"
+    html += "</div>"
+
+    st.markdown(html, unsafe_allow_html=True)
 
     st.markdown("""
     Este patrón representa una **inactivación aleatoria del cromosoma X** en una hembra XᴮXᵇ.  
