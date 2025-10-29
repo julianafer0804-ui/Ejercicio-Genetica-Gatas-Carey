@@ -40,16 +40,16 @@ if st.button("Realizar cruzamiento"):
     st.markdown("**Descendencia posible (hembra heterocigota XᴮXᵇ):**")
 
     # Generar patrón aleatorio (inactivación X)
-    size = 20
+    size = 16         # cuadrado más chico (antes era 20 o 40)
+    pixel_size = 12   # píxeles más pequeños (antes 20)
     matriz = np.random.choice([0, 1], size=(size, size))
 
-    # Crear cuadrado de píxeles con HTML
-    pixel_size = 20
-    html = "<div style='display: grid; grid-template-columns: " + " ".join(["{}px".format(pixel_size)] * size) + ";'>"
+    # Crear cuadrado de píxeles con HTML (más compacto)
+    html = f"<div style='display: grid; grid-template-columns: repeat({size}, {pixel_size}px); justify-content: center; gap: 0px;'>"
     for i in range(size):
         for j in range(size):
             color = "#FFD700" if matriz[i, j] == 1 else "#000000"
-            html += f"<div style='width:{pixel_size}px; height:{pixel_size}px; background-color:{color};'></div>"
+            html += f"<div style='width:{pixel_size}px; height:{pixel_size}px; background-color:{color}; border-radius:2px;'></div>"
     html += "</div>"
 
     st.markdown(html, unsafe_allow_html=True)
@@ -60,3 +60,4 @@ if st.button("Realizar cruzamiento"):
     """)
 else:
     st.info("Seleccioná un cruzamiento y presioná **Realizar cruzamiento** para generar el patrón del fenotipo carey.")
+
