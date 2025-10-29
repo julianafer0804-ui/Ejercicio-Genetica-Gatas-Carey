@@ -1,63 +1,56 @@
 import streamlit as st
 import numpy as np
 
-# Configuración general
-st.set_page_config(page_title="Herencia ligada al sexo - Fenotipo Carey", page_icon="🐱", layout="centered")
-
-st.title("🐾 Herencia ligada al sexo: Fenotipo Carey (Tortoiseshell)")
-
-st.markdown("""
-Este simulador muestra cómo la **inactivación aleatoria del cromosoma X** produce el patrón bicolor característico del 
-**fenotipo carey** en gatas heterocigotas para el gen del color, ligado al sexo.
-
-El color del pelaje en gatos está determinado por un gen ubicado en el **cromosoma X**:
-- 🟨 Alelo `Xᵇ` → color amarillo/anaranjado  
-- ⬛ Alelo `Xᴮ` → color negro  
-
-Las hembras con genotipo **XᴮXᵇ** expresan ambos colores en distintas zonas del cuerpo, debido a que en cada célula se **inactiva uno de los dos cromosomas X**.
-""")
-
-st.divider()
-
-# Opciones de cruzamiento posibles
-cruces = {
-    "🟨 XᵇXᵇ × ⬛ XᴮY": ("XᵇXᵇ", "XᴮY"),
-    "⬛ XᴮXᴮ × 🟨 XᵇY": ("XᴮXᴮ", "XᵇY")
-}
-
-# Selector de cruzamiento
-cruzamiento = st.selectbox(
-    "Seleccioná un cruzamiento posible:",
-    options=list(cruces.keys())
+# --- CONFIGURACIÓN DE PÁGINA ---
+st.set_page_config(
+    page_title="Herencia ligada al sexo: Gato Carey",
+    page_icon="🐱",
+    layout="centered"
 )
 
-# Botón para simular
-if st.button("Realizar cruzamiento"):
-    madre, padre = cruces[cruzamiento]
+st.title("🐾 Herencia ligada al sexo: Gato Carey 🧬")
+st.write("Visualización interactiva de la **inactivación del cromosoma X** en gatas bicolor (carey).")
 
-    st.markdown("### 🔬 Resultado del cruzamiento")
-    st.markdown(f"**Genotipos parentales:** {madre} × {padre}")
-    st.markdown("**Descendencia posible (hembra heterocigota XᴮXᵇ):**")
+# --- MOSTRAR GENOTIPOS ---
+st.markdown("### 🧬 Genotipos:")
+col1, col2, col3 = st.columns([1, 0.3, 1])
+with col1:
+    st.markdown("<div style='display:flex;align-items:center;gap:8px;'>🟨<b>bb</b></div>", unsafe_allow_html=True)
+with col2:
+    st.markdown("<div style='font-size:20px;text-align:center;'>×</div>", unsafe_allow_html=True)
+with col3:
+    st.markdown("<div style='display:flex;align-items:center;gap:8px;'>⬛<b>BB</b></div>", unsafe_allow_html=True)
 
-    # Generar patrón aleatorio (inactivación X)
-    size = 16         # cuadrado más chico (antes era 20 o 40)
-    pixel_size = 12   # píxeles más pequeños (antes 20)
-    matriz = np.random.choice([0, 1], size=(size, size))
-
-    # Crear cuadrado de píxeles con HTML (más compacto)
-    html = f"<div style='display: grid; grid-template-columns: repeat({size}, {pixel_size}px); justify-content: center; gap: 0px;'>"
-    for i in range(size):
-        for j in range(size):
-            color = "#FFD700" if matriz[i, j] == 1 else "#000000"
-            html += f"<div style='width:{pixel_size}px; height:{pixel_size}px; background-color:{color}; border-radius:2px;'></div>"
+# --- GENERAR PATRÓN ALEATORIO ---
+def generar_patron_html():
+    colores = np.random.choice(["#000000", "#FFD700"], size=(10, 10))
+    html = "<div style='display:grid;grid-template-columns:repeat(10,20px);gap:1px;background:#ccc;padding:5px;border-radius:10px;width:max-content;margin:auto;'>"
+    for fila in colores:
+        for color in fila:
+            html += f"<div style='width:20px;height:20px;background:{color};border-radius:3px;'></div>"
     html += "</div>"
+    return html
 
-    st.markdown(html, unsafe_allow_html=True)
+# --- BOTÓN Y MOSTRAR CUADRADO SOLO DESPUÉS ---
+if st.button("Realizar cruzamiento 🔄"):
+    st.session_state["patron"] = generar_patron_html()
 
-    st.markdown("""
-    Este patrón representa una **inactivación aleatoria del cromosoma X** en una hembra XᴮXᵇ.  
-    Las células que expresan el alelo `Xᴮ` producen pigmento negro, mientras que las que expresan `Xᵇ` producen color amarillo/anaranjado.
-    """)
-else:
-    st.info("Seleccioná un cruzamiento y presioná **Realizar cruzamiento** para generar el patrón del fenotipo carey.")
+if "patron" in st.session_state:
+    st.markdown(st.session_state["patron"], unsafe_allow_html=True)
+    st.caption("Ejemplo de inactivación aleatoria del cromosoma X")
+
+# --- EXPLICACIÓN BIOLÓGICA ---
+st.markdown("""
+### 🧬 Explicación biológica
+
+En las gatas **carey bicolor** (**XᴮXᵇ**), el gen del color del pelaje se encuentra en el **cromosoma X**.  
+Durante el desarrollo embrionario, uno de los cromosomas X se **inactiva al azar** en cada célula, fenómeno conocido como **inactivación del cromosoma X**.
+
+Esto genera un mosaico de células que expresan:
+- el alelo **B (negro)**  
+- o el alelo **b (amarillo o anaranjado)**  
+
+El resultado es el **patrón bicolor característico del pelaje carey**, producto de la inactivación aleatoria del cromosoma X.  
+El color **blanco** que a veces aparece en los gatos tricolores no se debe a este gen, sino a la acción de **otros genes de coloración**.
+""")
 
