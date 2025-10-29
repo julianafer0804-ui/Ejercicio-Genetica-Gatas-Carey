@@ -7,7 +7,7 @@ st.set_page_config(page_title="Herencia ligada al sexo - Fenotipo Carey", page_i
 st.title("🐾 Herencia ligada al sexo: Fenotipo Carey (Tortoiseshell)")
 
 st.markdown("""
-Este simulador muestra cómo la **inactivación aleatoria del cromosoma X** genera el patrón bicolor característico del 
+Este simulador muestra cómo la **inactivación aleatoria del cromosoma X** produce el patrón bicolor característico del 
 **fenotipo carey** en gatas heterocigotas para el gen del color, ligado al sexo.
 
 El color del pelaje en gatos está determinado por un gen ubicado en el **cromosoma X**:
@@ -31,23 +31,29 @@ cruzamiento = st.selectbox(
     options=list(cruces.keys())
 )
 
-# Botón de simulación
+# Botón para simular
 if st.button("Realizar cruzamiento"):
-    st.markdown("### 🔬 Resultado del cruzamiento")
     madre, padre = cruces[cruzamiento]
+    
+    st.markdown("### 🔬 Resultado del cruzamiento")
     st.markdown(f"**Genotipos parentales:** {madre} × {padre}")
+    st.markdown("**Descendencia posible (hembra heterocigota XᴮXᵇ):**")
 
-    # Generar mosaico aleatorio (inactivación X)
-    size = 20
-    matriz = np.random.choice(["🟨", "⬛"], size=(size, size))
-    pattern = "".join("".join(row) + "\n" for row in matriz)
+    # Generar patrón aleatorio (inactivación X)
+    size = 40  # tamaño del mosaico
+    matriz = np.random.choice([0, 1], size=(size, size))
+    
+    # Convertir la matriz en un gráfico de píxeles (negro y amarillo)
+    import matplotlib.pyplot as plt
 
-    st.text(pattern)
+    fig, ax = plt.subplots(figsize=(4, 4))
+    ax.imshow(matriz, cmap="inferno", interpolation="nearest")
+    ax.axis("off")
+    st.pyplot(fig)
 
     st.markdown("""
-    Cada mosaico representa un patrón posible de **inactivación aleatoria del cromosoma X** en una hembra heterocigota (XᴮXᵇ).  
-    Las células que expresan el alelo `Xᴮ` producen pigmento negro (⬛), mientras que las que expresan `Xᵇ` producen color amarillo (🟨).
+    Este patrón representa una **inactivación aleatoria del cromosoma X** en una hembra XᴮXᵇ.  
+    Las células que expresan el alelo `Xᴮ` producen pigmento negro, mientras que las que expresan `Xᵇ` producen color amarillo/anaranjado.
     """)
-
 else:
     st.info("Seleccioná un cruzamiento y presioná **Realizar cruzamiento** para generar el patrón del fenotipo carey.")
