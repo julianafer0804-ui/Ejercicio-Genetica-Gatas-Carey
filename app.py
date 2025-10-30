@@ -4,7 +4,7 @@ import numpy as np
 # Configuración general
 st.set_page_config(page_title="Herencia ligada al sexo - Fenotipo Carey", page_icon="🐱", layout="centered")
 
-st.title("🧬 Herencia ligada al sexo: Fenotipo Carey en gatos 🐈")
+st.title("🧬 Herencia ligada al sexo: Fenotipo Carey en gatas 🐈")
 
 st.markdown("""
 Este simulador muestra cómo la **inactivación aleatoria del cromosoma X** produce el patrón bicolor característico del 
@@ -68,7 +68,7 @@ if st.button("Realizar cruzamiento"):
     st.markdown(html, unsafe_allow_html=True)
 
     st.markdown("""
-    Este patrón representa una **inactivación aleatoria del cromosoma X** en una hembra XᴮXᵇ.  
+    Este patrón representa una **inactivación aleatoria del cromosoma X** en una hembra heterocigota XᴮXᵇ.  
     Las células que expresan el alelo `Xᴮ` producen pigmento negro, mientras que las que expresan `Xᵇ` producen color amarillo/anaranjado.
     """)
 else:
